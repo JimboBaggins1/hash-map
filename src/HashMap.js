@@ -152,4 +152,28 @@ export class HashMap {
         })
         return keyArr;
     }
+
+    values() {
+        let valuesArr = [];
+        this.buckets.forEach(node => {
+            let tmp = node;
+            while (tmp) {
+                valuesArr.push(tmp.value);
+                tmp = tmp.next;
+            }
+        })
+        return valuesArr;
+    }
+
+    entries() {
+        let kvpArr = [];
+        this.buckets.forEach(node => {
+            let tmp = node;
+            while (tmp) {
+                kvpArr.push([tmp.key, tmp.value]);
+                tmp = tmp.next;
+            }
+        })
+        return kvpArr;
+    }
 }
