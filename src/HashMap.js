@@ -1,4 +1,4 @@
-import { Node } from "./Node";
+import { Node } from "./NodeClass";
 
 export class HashMap {
     constructor(initialCapacity = 16, loadFactor = 0.75) {
