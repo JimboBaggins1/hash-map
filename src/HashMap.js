@@ -50,6 +50,18 @@ export class HashMap {
             // track how full the array is
             tmp.next = kvpNode;
             this.size = this.length;
+            if (this.size > this.capacity * this.loadFactor) {
+                // increase capacity when load factor is exceeded
+                this.capacity *= 2;
+                this.buckets.length = this.capacity;
+
+                // redistribute existing kvps in new buckets
+                const kvpArr = this.entries();
+                this.clear();
+                kvpArr.forEach(([key, value]) => {
+                    this.set(key, value);
+                })
+            }
             return;
         }
 
