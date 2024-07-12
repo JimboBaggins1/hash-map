@@ -5,6 +5,7 @@ export class HashMap {
         this.loadFactor = loadFactor;
         this.capacity = initialCapacity;
         this.buckets = new Array(this.initialCapacity);
+        this.size = 0;
     }
 
     hash(key) {
