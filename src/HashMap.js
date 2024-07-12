@@ -85,6 +85,40 @@ export class HashMap {
         }
         return false;
     }
+
+    remove(key) {
+        const hashCode = this.hash(key);
+        
+        // find all KVPs stored in this bucket
+        let tmp = this.buckets[hashCode];
+        let prev = null;
+
+        // special case - only one node in bucket, and we want to remove this node
+        if (!tmp.next && tmp.key === key) {
+            this.buckets[hashCode] = undefined;
+            this.size = this.length;
+            return;
+        }
+
+        // special case - if there are multiple nodes in bucket, and we want to remove the head node
+        if (tmp.key === key) {
+            this.buckets[hashCode] = tmp.next;
+            this.size = this.length;
+            return;
+        }
+
+        // general case - if there are n nodes in bucket (n > 1), and we want to remove a node in range 1 to n   
+        while (tmp.next) {
+            prev = tmp;
+            tmp = tmp.next;
+            if (tmp.key === key) {
+                prev.next = tmp.next;
+                this.size = this.length;
+                return;
+            }
+        }
+    }
+
     get length() {
         let count = 0;
         // loop through array of buckets, if bucket contains one or more nodes, count those nodes
