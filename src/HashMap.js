@@ -18,6 +18,43 @@ export class HashMap {
      
         return hashCode;
     }
+
+    set(key, value) {
+        // create new node for key-value pair
+        const kvpNode = new Node(key, value);
+
+        // convert key to hash
+        const hashCode = this.hash(key);
+
+        // store value in array index that matches hashCode
+        let tmp = this.buckets[hashCode];
+        
+        // if this is the first node added to the bucket, then add node. Else, traverse through the linked list and append node.
+        if (!tmp) {
+            // track how full the array is
+            this.buckets[hashCode] = kvpNode;
+            this.size = this.length;
+            return;
+        } else {
+            // special case - if there is already only one node we need to separately check if the values match.
+            if (tmp.key === kvpNode.key) {
+                return tmp.value = kvpNode.value;
+            }
+            while (tmp.next) {
+                // check if key already exists, in which case we just need to replace value
+                if (tmp.key === kvpNode.key) {
+                    return tmp.value = kvpNode.value;
+                }
+                tmp = tmp.next;
+            }
+            // track how full the array is
+            tmp.next = kvpNode;
+            this.size = this.length;
+            return;
+        }
+
+        // update size of array
+    }
     get length() {
         let count = 0;
         // loop through array of buckets, if bucket contains one or more nodes, count those nodes
