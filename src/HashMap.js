@@ -55,6 +55,36 @@ export class HashMap {
 
         // update size of array
     }
+
+    get(key) {
+        const hashCode = this.hash(key);
+
+        // find all KVPs stored in this bucket
+        let tmp = this.buckets[hashCode];
+        
+        while (tmp) {
+            if (tmp.key === key) {
+                return tmp.value;
+            }
+            tmp = tmp.next;
+        }
+        return null;
+    }
+
+    has(key) {
+        const hashCode = this.hash(key);
+        
+        // find all KVPs stored in this bucket
+        let tmp = this.buckets[hashCode];
+
+        while (tmp) {
+            if (tmp.key === key) {
+                return true;
+            }
+            tmp = tmp.next;
+        }
+        return false;
+    }
     get length() {
         let count = 0;
         // loop through array of buckets, if bucket contains one or more nodes, count those nodes
