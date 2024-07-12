@@ -131,4 +131,25 @@ export class HashMap {
         })
         return count;
     }
+
+    clear() {
+        for (let i = 0; i < this.buckets.length; i++) {
+            this.buckets[i] = undefined;
+        }
+
+        // update size
+        this.size = this.length;
+    }
+
+    keys() {
+        let keyArr = [];
+        this.buckets.forEach(node => {
+            let tmp = node;
+            while (tmp) {
+                keyArr.push(tmp.key);
+                tmp = tmp.next;
+            }
+        })
+        return keyArr;
+    }
 }
