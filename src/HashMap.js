@@ -18,4 +18,16 @@ export class HashMap {
      
         return hashCode;
     }
+    get length() {
+        let count = 0;
+        // loop through array of buckets, if bucket contains one or more nodes, count those nodes
+        this.buckets.forEach(node => {
+            let tmp = node;
+            while (tmp) {
+                count++;
+                tmp = tmp.next;
+            }
+        })
+        return count;
+    }
 }
